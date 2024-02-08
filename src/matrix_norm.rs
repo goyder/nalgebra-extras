@@ -25,3 +25,29 @@ where
         max_column_sum
     }
 }
+
+#[cfg(test)]
+mod matrix_norm_tests {
+    use super::*;
+
+    #[test]
+    fn test_inf_norm_square() {
+        let a = na::Matrix3::new(1., 2., 3., 4., 5., 6., 7., 8., 9.);
+
+        assert_eq!(a.matrix_norm_inf(), 18.);
+    }
+
+    #[test]
+    fn test_inf_norm_square_with_negative_components() {
+        let a = na::Matrix3::new(1., 2., 3., 4., 5., 6., 7., 8., -9.);
+
+        assert_eq!(a.matrix_norm_inf(), 18.);
+    }
+
+    #[test]
+    fn test_inf_norm_nonsquare_with_negative_components() {
+        let a = na::Matrix3x4::new(1., 2., 3., 1., 4., 5., 6., 1., 7., 8., -9., 1.);
+
+        assert_eq!(a.matrix_norm_inf(), 18.);
+    }
+}

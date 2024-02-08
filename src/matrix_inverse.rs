@@ -62,3 +62,30 @@ where
         }
     }
 }
+
+#[cfg(test)]
+mod matrix_inverse_tests {
+    use super::*;
+
+    #[test]
+    fn test_neumann_inverse() {
+        let epsilon = 0.00001;
+
+        let a = na::Matrix3::new(0.9, -0.2, -0.3, 0.1, 1.0, -0.1, 0.3, 0.2, 1.1);
+
+        let a_actual_inv = na::Matrix3::new(
+            1.0,
+            0.14285714,
+            0.28571429,
+            -0.125,
+            0.96428571,
+            0.05357143,
+            -0.25,
+            -0.21428571,
+            0.82142857,
+        );
+
+        let a_inv = a.neumann_inverse(epsilon, 50).unwrap();
+        assert!((a_inv - a_actual_inv).lp_norm(1) < epsilon);
+    }
+}
