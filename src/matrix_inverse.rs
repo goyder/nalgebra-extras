@@ -33,6 +33,7 @@ where
         epsilon: f64,
         max_iter: usize,
     ) -> Result<OMatrix<f64, R, R>, InverseError> {
+        // TODO: Refactor these fuzzy type transformations
         let mut i = self.clone();
         i.fill_with_identity();
 
